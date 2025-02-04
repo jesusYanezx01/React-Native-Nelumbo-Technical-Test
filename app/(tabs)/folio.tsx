@@ -1,5 +1,6 @@
 import { View, Text, FlatList, Pressable } from "react-native";
 import { useRouter } from "expo-router";
+import Header from "@/components/Header";
 
 const folios = [
   { id: "1", title: "Folio 1" },
@@ -12,6 +13,7 @@ export default function FoliosScreen() {
 
   return (
     <View>
+      <Header/>
       <Text style={{ fontSize: 20, fontWeight: "bold", marginBottom: 10 }}>
         Lista de Folios
       </Text>
