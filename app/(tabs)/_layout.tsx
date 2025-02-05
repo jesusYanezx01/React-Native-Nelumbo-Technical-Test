@@ -22,7 +22,8 @@ export default function TabLayout() {
     <Tabs
       initialRouteName="folio"
       screenOptions={{
-        tabBarActiveTintColor: "#ffd33d",
+        tabBarActiveTintColor: "#7f1ee6",
+        tabBarInactiveTintColor: "#3a87d9",
         headerStyle: {
           backgroundColor: "#25292e",
         },
@@ -44,7 +45,7 @@ export default function TabLayout() {
         headerShadowVisible: false,
         headerTintColor: "#fff",
         tabBarStyle: {
-          backgroundColor: "#25292e",
+          backgroundColor: "#fff",
         },
       }}
     >
