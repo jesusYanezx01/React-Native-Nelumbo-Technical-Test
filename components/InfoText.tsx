@@ -7,11 +7,13 @@ type Props = {
   style?: TextStyle;
 };
 
-const InfoText = ({ label, value, style }: Props) => (
-  <Text style={[styles.infoText, style]}>
-    <Text style={styles.bold}>{label}:</Text> {value}
-  </Text>
-);
+export default function InfoText  ({ label, value, style }: Props) {
+  return (
+    <Text style={[styles.infoText, style]}>
+      <Text style={styles.bold}>{label}:</Text> {value}
+    </Text>
+  );
+}
 
 const styles = StyleSheet.create({
   infoText: {
@@ -23,5 +25,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default InfoText;
