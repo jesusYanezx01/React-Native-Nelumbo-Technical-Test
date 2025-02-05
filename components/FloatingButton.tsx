@@ -1,14 +1,14 @@
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { Pressable, StyleSheet } from "react-native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function FloatingButton() {
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.button}
       onPress={() => console.log("Button Pressed")}
     >
       <AntDesign name="plus" size={28} color="white" />
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
