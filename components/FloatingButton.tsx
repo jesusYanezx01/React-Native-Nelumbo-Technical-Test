@@ -7,27 +7,28 @@ export default function FloatingButton() {
       style={styles.button}
       onPress={() => console.log("Button Pressed")}
     >
-      <AntDesign name="plus" size={24} color="white" />
+      <AntDesign name="plus" size={28} color="white" />
     </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    width: 74,
-    height: 74,
-    borderRadius: 40,
-    backgroundColor: "#4a01c4",
     position: "absolute",
+    right: "50%",
+    left: "50%",
+    top: "8%",
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: "#4a01c4",
     justifyContent: "center",
     alignItems: "center",
-    left: "50%",
-    top: 24,
-    transform: [{ translateX: -30 }],
     elevation: 5,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
+    transform: [{ translateX: -30 }],
   },
 });

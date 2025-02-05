@@ -1,5 +1,4 @@
 import { StyleSheet, Text, View } from "react-native";
-import FloatingButton from "./FloatingButton";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 
@@ -14,7 +13,6 @@ export default function IconText() {
         <Text style={styles.text}>Ordenar por</Text>
         <MaterialCommunityIcons name="sort-ascending" size={16} color="black" />
       </View>
-      <FloatingButton />
     </View>
   );
 }
@@ -28,6 +26,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#e4e4e4",
     paddingHorizontal: 24,
     paddingVertical: 16,
+    marginBottom: 16,
   },
   item: {
     flexDirection: "row",
