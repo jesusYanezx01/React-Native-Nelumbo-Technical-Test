@@ -2,6 +2,9 @@ import { Tabs, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { TouchableOpacity, View } from "react-native";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function TabLayout() {
   const [isReady, setIsReady] = useState(false);
@@ -16,7 +19,35 @@ export default function TabLayout() {
   }, [isReady, router]);
 
   return (
-    <Tabs initialRouteName="folio">
+    <Tabs
+      initialRouteName="folio"
+      screenOptions={{
+        tabBarActiveTintColor: "#ffd33d",
+        headerStyle: {
+          backgroundColor: "#25292e",
+        },
+        headerRight: () => (
+          <View style={{ flexDirection: "row", marginRight: 10 }}>
+            <TouchableOpacity onPress={() => alert("Icon 1 pressed")}>
+              <FontAwesome
+                name="user-circle-o"
+                size={24}
+                color="white"
+                style={{ marginRight: 15 }}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => alert("Icon 2 pressed")}>
+              <Ionicons name="notifications" size={24} color="white" />
+            </TouchableOpacity>
+          </View>
+        ),
+        headerShadowVisible: false,
+        headerTintColor: "#fff",
+        tabBarStyle: {
+          backgroundColor: "#25292e",
+        },
+      }}
+    >
       <Tabs.Screen
         name="index"
         options={{
@@ -51,7 +82,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="folio"
         options={{
-          title: "Folio",
+          title: "Check+",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="bug" color={color} size={24} />
           ),
