@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import InfoText from "./InfoText";
+import CustomBadge from "./CustomBadge";
 
 type Props = {
   item: {
@@ -23,28 +24,28 @@ export default function FolioCard({ item, onPress }: Props) {
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.folioId}># {item.id}</Text>
-        <View style={[styles.badge, { backgroundColor: "#4a01c4" }]}>
-          <Text style={styles.badgeText}>{item.type}</Text>
-        </View>
+        <CustomBadge
+          label={item.type}
+          styleView={{ backgroundColor: "#4a01c4" }}
+        />
       </View>
 
       <Text style={styles.title}>{item.name}</Text>
 
       <View style={styles.badgeContainer}>
-        <View style={[styles.badge, { backgroundColor: "#FF4D4D" }]}>
-          <Text style={styles.badgeText}> {item.priority.name} </Text>
-        </View>
-        <View
-          style={[
-            styles.badge,
-            { backgroundColor: "#fff", borderWidth: 1, borderColor: "#4a01c4" },
-          ]}
-        >
-          <Text style={[styles.badgeText, { color: "#4a01c4" }]}>
-            {" "}
-            {item.status.description}{" "}
-          </Text>
-        </View>
+        <CustomBadge
+          label={item.priority.name}
+          styleView={{ backgroundColor: "#FF4D4D" }}
+        />
+        <CustomBadge
+          label={item.status.description}
+          styleView={{
+            backgroundColor: "#fff",
+            borderWidth: 1,
+            borderColor: "#4a01c4",
+          }}
+          styleText={{ color: "#4a01c4" }}
+        />
       </View>
 
       <InfoText label="Solicitada el" value={item.createTime} />
@@ -99,16 +100,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 4,
     marginBottom: 8,
-  },
-  badge: {
-    borderRadius: 15,
-    paddingVertical: 4,
-    paddingHorizontal: 8,
-  },
-  badgeText: {
-    color: "#fff",
-    fontSize: 12,
-    fontWeight: "bold",
   },
   button: {
     marginTop: 10,
