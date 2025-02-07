@@ -3,7 +3,7 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import InfoText from "./InfoText";
 import CustomBadge from "./CustomBadge";
 
-type Props = {
+type Props = Readonly<{
   item: {
     id: string;
     name: string;
@@ -12,12 +12,15 @@ type Props = {
     createTime: string;
     priority: { name: string };
     status: { description: string };
-    department: { name: string; userManage: { firstName: string } };
-    createdByUser: { firstName: string };
+    department: {
+      name: string;
+      userManage: { firstName: string | null } | null;
+    };
+    createdByUser: { firstName: string | null } | null;
     userAttendingId: number;
   };
   onPress: () => void;
-};
+}>;
 
 export default function FolioCard({ item, onPress }: Props) {
   return (
@@ -30,7 +33,7 @@ export default function FolioCard({ item, onPress }: Props) {
         />
       </View>
 
-      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.title}>{item.name ?? "N/A"}</Text>
 
       <View style={styles.badgeContainer}>
         <CustomBadge
@@ -54,12 +57,12 @@ export default function FolioCard({ item, onPress }: Props) {
       <InfoText label="Unidad" value="Sample 123" />
       <InfoText
         label="Creador"
-        value={item.createdByUser.firstName}
+        value={item.createdByUser?.firstName ?? "N/A"}
         style={{ marginTop: 16 }}
       />
       <InfoText
         label="Proveedor"
-        value={item.department.userManage.firstName}
+        value={item.department.userManage?.firstName ?? "N/A"}
       />
       <InfoText label="Solucionador" value={item.userAttendingId.toString()} />
 
