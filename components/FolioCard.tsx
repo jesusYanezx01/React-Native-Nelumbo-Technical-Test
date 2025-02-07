@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, Pressable, StyleSheet } from "react-native";
 import InfoText from "./InfoText";
 import CustomBadge from "./CustomBadge";
+import { formatDate } from "@/utils/formatDate";
 
 type Props = Readonly<{
   item: {
@@ -51,7 +52,7 @@ export default function FolioCard({ item, onPress }: Props) {
         />
       </View>
 
-      <InfoText label="Solicitada el" value={item.createTime} />
+      <InfoText label="Solicitada el" value={formatDate(item.createTime)} />
       <InfoText label="Área" value={item.area.name} style={{ marginTop: 16 }} />
       <InfoText label="Departamento" value={item.department.name} />
       <InfoText label="Unidad" value="Sample 123" />
