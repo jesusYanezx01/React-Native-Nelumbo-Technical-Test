@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
 type Props = {
   title: string;
-  iconName: string;
+  iconName: keyof typeof Ionicons.glyphMap;
   colorIcon: string;
   showBadge?: boolean;
   onPress?: () => void;

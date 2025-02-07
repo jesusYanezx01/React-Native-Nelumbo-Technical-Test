@@ -83,7 +83,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="folio"
         options={{
-          title: "Check+",
+          title: "Folio",
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="bug" color={color} size={24} />
           ),

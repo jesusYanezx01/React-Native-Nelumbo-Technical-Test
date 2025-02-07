@@ -72,13 +72,13 @@ export default function FolioCard({ item, onPress }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
-    borderRadius: 15,
-    padding: 20,
-    marginBottom: 16,
     marginHorizontal: "16%",
+    backgroundColor: "#FFF",
+    padding: 20,
+    borderRadius: 15,
+    marginBottom: 16,
+    elevation: 6,
     shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },

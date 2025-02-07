@@ -54,7 +54,7 @@ export default function FolioDetailScreen() {
                 name="keyboard-double-arrow-right"
                 size={24}
                 color="white"
-              />{" "}
+              />
             </View>
           </View>
         </View>
@@ -175,6 +175,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 4,
   },
-  buttonTextPrimary: { color: "#3a87d9", fontSize: 16  },
+  buttonTextPrimary: { color: "#3a87d9", fontSize: 16 },
   buttonTextSecondary: { color: "#fff", fontSize: 16 },
 });
