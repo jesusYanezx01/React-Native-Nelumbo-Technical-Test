@@ -72,7 +72,7 @@ export default function FolioCard({ item, onPress }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    marginHorizontal: "16%",
+    marginHorizontal: "12%",
     backgroundColor: "#FFF",
     padding: 20,
     borderRadius: 15,

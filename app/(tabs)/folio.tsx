@@ -207,6 +207,7 @@ export default function FoliosScreen() {
     <View style={styles.container}>
       <Header />
       <IconText />
+      <FloatingButton />
       <FlatList
         data={folios}
         keyExtractor={(item) => item.id}
@@ -216,8 +217,8 @@ export default function FoliosScreen() {
             onPress={() => router.push(`/folios/${item.id}`)}
           />
         )}
+        contentContainerStyle={{ paddingBottom: 20 }}
       />
-      <FloatingButton />
     </View>
   );
 }

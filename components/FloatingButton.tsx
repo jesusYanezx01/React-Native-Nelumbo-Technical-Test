@@ -3,10 +3,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 
 export default function FloatingButton() {
   return (
-    <Pressable
-      style={styles.button}
-      onPress={() => console.log("Button Pressed")}
-    >
+    <Pressable style={styles.button} onPress={() => console.log("Button Pressed")}>
       <AntDesign name="plus" size={28} color="white" />
     </Pressable>
   );
@@ -15,12 +12,11 @@ export default function FloatingButton() {
 const styles = StyleSheet.create({
   button: {
     position: "absolute",
-    right: "50%",
-    left: "50%",
-    top: "8%",
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    top: 70,
+    alignSelf: "center",
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     backgroundColor: "#4a01c4",
     justifyContent: "center",
     alignItems: "center",
@@ -29,6 +25,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 3,
-    transform: [{ translateX: -30 }],
+    zIndex: 10,
   },
 });
