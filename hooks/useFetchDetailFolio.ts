@@ -3,34 +3,30 @@ import { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { FolioResponse } from "@/data/data/response/FolioResponse";
 
-export const useFetchListFolios = () => {
+export const useFetchDetailFolio = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [folios, setFolios] = useState<FolioResponse[]>([]);
+  const [folio, setFolio] = useState<FolioResponse>({} as FolioResponse);
 
-  const fetchListFolios = async (limit: string, order: string) => {
+  const fetchDetailFolio = async (folioId: string | string[] ) => {
     setLoading(true);
     setError(null);
 
     try {
       const token = await AsyncStorage.getItem("authToken");
       if (!token) throw new Error("No se encontró un token");
-
-      const response = await fetch(
-        `${ENDPOINTS.FETCH_REPORT_FOLIO_GET}?limit=${limit}&order=${order}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (!response.ok) throw new Error("Error al obtener los folios");
+      const response = await fetch(ENDPOINTS.FETCH_FOLIO_ID_GET(folioId), {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response);
+      if (!response.ok) throw new Error("Error al obtener el folio");
 
       const data = await response.json();
-      setFolios(data);
+      setFolio(data);
       return data;
     } catch (err) {
       setError(err instanceof Error ? err.message : "Error desconocido");
@@ -40,5 +36,5 @@ export const useFetchListFolios = () => {
     }
   };
 
-  return { fetchListFolios, folios, loading, error };
+  return { fetchDetailFolio, folio, loading, error };
 };

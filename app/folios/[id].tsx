@@ -1,12 +1,53 @@
-import { View, Text, ScrollView, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import CustomBadge from "@/components/CustomBadge";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { LinearGradient } from "expo-linear-gradient";
 import OptionsList from "@/components/OptionsList";
+import { useFetchDetailFolio } from "@/hooks/useFetchDetailFolio";
+import { useEffect } from "react";
 
 export default function FolioDetailScreen() {
   const { id } = useLocalSearchParams();
+  const { fetchDetailFolio, folio, loading, error } = useFetchDetailFolio();
+
+  useEffect(() => {
+    if (id) {
+      fetchDetailFolio(id);
+    }
+  }, [id]);
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#5E0FDD" />
+        <Text>Cargando folio...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={{ color: "red" }}>Error al cargar el folio: {error}</Text>
+      </View>
+    );
+  }
+
+  if (!folio) {
+    return (
+      <View style={styles.center}>
+        <Text>No se encontraron datos para el folio.</Text>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
@@ -18,11 +59,11 @@ export default function FolioDetailScreen() {
         <View style={styles.mainContentContainer}>
           <View style={styles.badgeContainer}>
             <CustomBadge
-              label="baja"
+              label={folio?.priority?.name ?? "N/A"}
               styleView={{ backgroundColor: "#FF4D4D" }}
             />
             <CustomBadge
-              label="En espera de solucion"
+              label={folio?.status?.description ?? "N/A"}
               styleView={{
                 backgroundColor: "#fff",
                 borderWidth: 1,
@@ -31,21 +72,14 @@ export default function FolioDetailScreen() {
               styleText={{ color: "#4a01c4" }}
             />
           </View>
-          <Text
-            style={{
-              fontSize: 24,
-              marginBottom: 8,
-              fontWeight: "bold",
-              color: "white",
-            }}
-          >
-            #{id} - Nombre del folio
+          <Text style={styles.title}>
+            #{id} - {folio?.name ?? "N/A"}
           </Text>
           <View
             style={{ flexDirection: "row", justifyContent: "space-between" }}
           >
             <CustomBadge
-              label="correctiva"
+              label={folio?.type ?? "N/A"}
               styleView={{ backgroundColor: "#4a01c4" }}
             />
             <View style={styles.showMoreContainer}>
@@ -61,26 +95,12 @@ export default function FolioDetailScreen() {
       </LinearGradient>
 
       <View style={{ backgroundColor: "#ec6666" }}>
-        <Text
-          style={{
-            color: "white",
-            fontSize: 20,
-            paddingHorizontal: 24,
-            paddingVertical: 8,
-            fontWeight: "bold",
-          }}
-        >
-          15 Dias transcurridos
-        </Text>
+        <Text style={styles.daysPassedText}>15 Días transcurridos</Text>
       </View>
 
       <View style={styles.descriptionContainer}>
-        <Text style={{ fontWeight: "bold", marginBottom: 8 }}>Descripcion</Text>
-        <Text>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, itaque
-          ullam dolorum corporis at ab harum explicabo corrupti cumque quas esse
-          quis facilis culpa velit tempora earum soluta. Cupiditate, odio.
-        </Text>
+        <Text style={{ fontWeight: "bold", marginBottom: 8 }}>Descripción</Text>
+        <Text>{folio?.description ?? "Sin descripción"}</Text>
       </View>
 
       <View style={styles.optionsListContainer}>
@@ -88,22 +108,13 @@ export default function FolioDetailScreen() {
       </View>
 
       <View style={styles.historyContainer}>
-        <Text
-          style={{
-            fontWeight: "bold",
-            marginBottom: 8,
-            borderBottomColor: "#e4e4e4",
-            borderBottomWidth: 1,
-          }}
-        >
-          Historial
-        </Text>
-
+        <Text style={styles.historyTitle}>Historial</Text>
         <View style={styles.card}>
-          <Text style={{ color: "#3a87d9", fontSize: 20, fontWeight: "bold" }}>
-            Pedir cotizacion
+          <Text style={styles.cardTitle}>Pedir cotización</Text>
+          <Text style={{ color: "#b7b7b7" }}>
+            Proveedor:
+            {folio?.department?.userManage?.firstName ?? "Desconocido"}
           </Text>
-          <Text style={{ color: "#b7b7b7" }}>Proveedor: Jesus Yañez</Text>
 
           <Pressable
             onPress={() => console.log("hola")}
@@ -115,7 +126,7 @@ export default function FolioDetailScreen() {
             onPress={() => console.log("hola")}
             style={styles.buttonSecondary}
           >
-            <Text style={styles.buttonTextSecondary}>Pedir cotizacion</Text>
+            <Text style={styles.buttonTextSecondary}>Pedir cotización</Text>
           </Pressable>
         </View>
       </View>
@@ -127,6 +138,12 @@ const styles = StyleSheet.create({
   mainContentContainer: {
     marginHorizontal: 24,
     marginVertical: 16,
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 8,
+    fontWeight: "bold",
+    color: "white",
   },
   descriptionContainer: {
     marginHorizontal: 24,
@@ -160,6 +177,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
+  cardTitle: {
+    color: "#3a87d9",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  historyTitle: {
+    fontWeight: "bold",
+    marginBottom: 8,
+    borderBottomColor: "#e4e4e4",
+    borderBottomWidth: 1,
+  },
+  daysPassedText: {
+    color: "white",
+    fontSize: 20,
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    fontWeight: "bold",
+  },
   buttonPrimary: {
     marginTop: 8,
     alignItems: "center",
@@ -175,6 +210,17 @@ const styles = StyleSheet.create({
     padding: 16,
     borderRadius: 4,
   },
-  buttonTextPrimary: { color: "#3a87d9", fontSize: 16 },
-  buttonTextSecondary: { color: "#fff", fontSize: 16 },
+  buttonTextPrimary: {
+    color: "#3a87d9",
+    fontSize: 16,
+  },
+  buttonTextSecondary: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

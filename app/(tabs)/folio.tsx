@@ -16,26 +16,42 @@ import { useFetchListFolios } from "@/hooks/useFetchListFolios";
 
 export default function FoliosScreen() {
   const router = useRouter();
-  const { login, token, loading, error } = useLogin();
+  const { login, logout, token, loading, error } = useLogin();
   const { fetchListFolios, folios } = useFetchListFolios();
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   useEffect(() => {
     if (!token) {
       login("y.cordoba@nelumbo.com.co", "Ana1234567");
     }
-    fetchListFolios("6", "asc");
+    fetchListFolios("6", "DESC");
   }, [token]);
+
+  if (loading) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator size="large" color="#5E0FDD" />
+        <Text>Cargando...</Text>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <Text style={{ color: "red" }}>Error al cargar el folio: {error}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Header />
       <IconText />
       <FloatingButton />
-
-      {loading && <ActivityIndicator size="large" color="#0000ff" />}
-      {error && (
-        <Text style={{ color: "red", textAlign: "center" }}>{error}</Text>
-      )}
 
       {!loading && !error && token && (
         <FlatList
@@ -58,5 +74,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
+  },
+  center: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

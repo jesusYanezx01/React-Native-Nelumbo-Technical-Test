@@ -3,23 +3,10 @@ import { View, Text, Pressable, StyleSheet } from "react-native";
 import InfoText from "./InfoText";
 import CustomBadge from "./CustomBadge";
 import { formatDate } from "@/utils/formatDate";
+import { FolioResponse } from "@/data/data/response/FolioResponse";
 
 type Props = Readonly<{
-  item: {
-    id: string;
-    name: string;
-    type: string;
-    area: { name: string };
-    createTime: string;
-    priority: { name: string };
-    status: { description: string };
-    department: {
-      name: string;
-      userManage: { firstName: string | null } | null;
-    };
-    createdByUser: { firstName: string | null } | null;
-    userAttendingId: number;
-  };
+  item: FolioResponse;
   onPress: () => void;
 }>;
 
