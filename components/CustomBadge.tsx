@@ -1,12 +1,12 @@
 import { StyleSheet, Text, TextStyle, View, ViewStyle } from "react-native";
 
-type Props = {
+type Props = Readonly<{
   label: string;
   styleView?: ViewStyle;
   styleText?: TextStyle;
-};
+}>;
 
-export default function CustomBadge ({ label, styleView, styleText }: Props) {
+export default function CustomBadge({ label, styleView, styleText }: Props) {
   return (
     <View style={[styles.badge, styleView]}>
       <Text style={[styles.badgeText, styleText]}>{label}</Text>
