@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     padding: 8,
     borderRadius: 8,
-    marginBottom: 8,
+    marginVertical: 8,
     elevation: 6,
     shadowColor: "#000",
     shadowOpacity: 0.2,

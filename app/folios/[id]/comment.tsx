@@ -7,6 +7,8 @@ import React, { useEffect } from "react";
 import {
   ActivityIndicator,
   FlatList,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -110,13 +112,14 @@ export default function comment() {
                 date={item.date}
               />
             )}
-            contentContainerStyle={{ paddingBottom: 16 }}
-            ListFooterComponent={<View style={{ height: 200 }} />}
+            automaticallyAdjustKeyboardInsets={true}
           />
         )}
       </View>
-
-      <View style={styles.containerSendComment}>
+      <KeyboardAvoidingView
+        style={styles.containerSendComment}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
         <TextInput
           style={styles.TextInputSendComment}
           placeholder="Comentario..."
@@ -127,7 +130,7 @@ export default function comment() {
         >
           <Ionicons name="send" size={20} color="white" />
         </Pressable>
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -143,18 +146,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   containerCommentCard: {
-    marginTop: 16,
+    flex: 1,
   },
   containerSendComment: {
-    backgroundColor: "#FFF",
-    position: "absolute",
-    bottom: 16,
-    left: 0,
-    right: 0,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: "8%",
+    marginBottom: 16, 
   },
   buttonSendComment: {
     justifyContent: "center",
@@ -171,6 +170,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     borderColor: "#9E9E9E",
+    backgroundColor: "#FFF",
     padding: 10,
   },
 });
