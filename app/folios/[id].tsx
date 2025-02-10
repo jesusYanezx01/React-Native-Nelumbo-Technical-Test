@@ -6,16 +6,15 @@ import {
   Pressable,
   ActivityIndicator,
 } from "react-native";
-import { useLocalSearchParams } from "expo-router";
-import CustomBadge from "@/components/CustomBadge";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import { LinearGradient } from "expo-linear-gradient";
-import OptionsList from "@/components/OptionsList";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useFetchDetailFolio } from "@/hooks/useFetchDetailFolio";
 import { useEffect } from "react";
+import HeaderMainInformation from "@/components/HeaderMainInformation";
+import OptionItem from "@/components/OptionsList";
 
 export default function FolioDetailScreen() {
   const { id } = useLocalSearchParams();
+  const router = useRouter();
   const { fetchDetailFolio, folio, loading, error } = useFetchDetailFolio();
 
   useEffect(() => {
@@ -51,48 +50,13 @@ export default function FolioDetailScreen() {
 
   return (
     <ScrollView style={{ backgroundColor: "#fff" }}>
-      <LinearGradient
-        colors={["#5E0FDD", "#A036E4"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-      >
-        <View style={styles.mainContentContainer}>
-          <View style={styles.badgeContainer}>
-            <CustomBadge
-              label={folio?.priority?.name ?? "N/A"}
-              styleView={{ backgroundColor: "#FF4D4D" }}
-            />
-            <CustomBadge
-              label={folio?.status?.description ?? "N/A"}
-              styleView={{
-                backgroundColor: "#fff",
-                borderWidth: 1,
-                borderColor: "#4a01c4",
-              }}
-              styleText={{ color: "#4a01c4" }}
-            />
-          </View>
-          <Text style={styles.title}>
-            #{id} - {folio?.name ?? "N/A"}
-          </Text>
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <CustomBadge
-              label={folio?.type ?? "N/A"}
-              styleView={{ backgroundColor: "#4a01c4" }}
-            />
-            <View style={styles.showMoreContainer}>
-              <Text style={{ color: "white" }}>Ver más</Text>
-              <MaterialIcons
-                name="keyboard-double-arrow-right"
-                size={24}
-                color="white"
-              />
-            </View>
-          </View>
-        </View>
-      </LinearGradient>
+      <HeaderMainInformation
+        id={id}
+        priority={folio?.priority?.name}
+        status={folio?.status?.description}
+        name={folio?.name}
+        type={folio?.type}
+      />
 
       <View style={{ backgroundColor: "#ec6666" }}>
         <Text style={styles.daysPassedText}>15 Días transcurridos</Text>
@@ -104,7 +68,30 @@ export default function FolioDetailScreen() {
       </View>
 
       <View style={styles.optionsListContainer}>
-        <OptionsList />
+        <View>
+          <OptionItem
+            title="Evidencias"
+            iconName="attach"
+            colorIcon="#5511c8"
+          />
+          <OptionItem
+            title="Opciones avanzadas"
+            iconName="arrow-forward"
+            colorIcon="black"
+          />
+          <OptionItem
+            title="Informe de folio"
+            iconName="eye-outline"
+            colorIcon="black"
+          />
+          <OptionItem
+            title="Comentarios"
+            iconName="arrow-forward"
+            showBadge
+            colorIcon="black"
+            onPress={() => router.push(`/folios/${id}/comment`)}
+          />
+        </View>
       </View>
 
       <View style={styles.historyContainer}>
@@ -135,16 +122,6 @@ export default function FolioDetailScreen() {
 }
 
 const styles = StyleSheet.create({
-  mainContentContainer: {
-    marginHorizontal: 24,
-    marginVertical: 16,
-  },
-  title: {
-    fontSize: 24,
-    marginBottom: 8,
-    fontWeight: "bold",
-    color: "white",
-  },
   descriptionContainer: {
     marginHorizontal: 24,
     marginTop: 16,
@@ -156,16 +133,6 @@ const styles = StyleSheet.create({
   historyContainer: {
     marginHorizontal: 24,
     marginTop: 8,
-  },
-  badgeContainer: {
-    flexDirection: "row",
-    gap: 4,
-    marginBottom: 8,
-    marginTop: 8,
-  },
-  showMoreContainer: {
-    flexDirection: "row",
-    gap: 8,
   },
   card: {
     backgroundColor: "#fff",

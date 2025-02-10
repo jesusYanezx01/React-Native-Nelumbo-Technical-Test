@@ -3,21 +3,21 @@ import React from "react";
 
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 
-type Props = {
+type Props = Readonly<{
   title: string;
   iconName: keyof typeof Ionicons.glyphMap;
   colorIcon: string;
   showBadge?: boolean;
   onPress?: () => void;
-};
+}>;
 
-const OptionItem = ({
+export default function OptionItem({
   title,
   iconName,
   colorIcon,
   showBadge,
   onPress,
-}: Props) => {
+}: Props) {
   return (
     <TouchableOpacity style={styles.optionContainer} onPress={onPress}>
       <View style={{ flexDirection: "row", gap: 8 }}>
@@ -33,31 +33,7 @@ const OptionItem = ({
       </View>
     </TouchableOpacity>
   );
-};
-
-const OptionsList = () => {
-  return (
-    <View>
-      <OptionItem title="Evidencias" iconName="attach" colorIcon="#5511c8" />
-      <OptionItem
-        title="Opciones avanzadas"
-        iconName="arrow-forward"
-        colorIcon="black"
-      />
-      <OptionItem
-        title="Informe de folio"
-        iconName="eye-outline"
-        colorIcon="black"
-      />
-      <OptionItem
-        title="Comentarios"
-        iconName="arrow-forward"
-        showBadge
-        colorIcon="black"
-      />
-    </View>
-  );
-};
+}
 
 const styles = StyleSheet.create({
   optionContainer: {
@@ -96,5 +72,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default OptionsList;
