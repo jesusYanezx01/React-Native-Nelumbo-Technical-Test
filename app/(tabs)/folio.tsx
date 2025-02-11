@@ -25,7 +25,7 @@ export default function FoliosScreen() {
 
   useEffect(() => {
     if (!token) {
-      login("y.cordoba@nelumbo.com.co", "Ana1234567");
+      login("y.cordoba+10@nelumbo.com.co", "Ana1234567");
     }
     fetchListFolios("6", "DESC");
   }, [token]);

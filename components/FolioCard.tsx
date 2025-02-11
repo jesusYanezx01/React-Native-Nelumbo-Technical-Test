@@ -21,11 +21,11 @@ export default function FolioCard({ item, onPress }: Props) {
         />
       </View>
 
-      <Text style={styles.title}>{item.name ?? "N/A"}</Text>
+      <Text style={styles.title}>{item?.name ?? "N/A"}</Text>
 
       <View style={styles.badgeContainer}>
         <CustomBadge
-          label={item.priority.name}
+          label={item?.priority?.name ?? "N/A"}
           styleView={{ backgroundColor: "#FF4D4D" }}
         />
         <CustomBadge
@@ -40,8 +40,8 @@ export default function FolioCard({ item, onPress }: Props) {
       </View>
 
       <InfoText label="Solicitada el" value={formatDate(item.createTime)} />
-      <InfoText label="Área" value={item.area.name} style={{ marginTop: 16 }} />
-      <InfoText label="Departamento" value={item.department.name} />
+      <InfoText label="Área" value={item.area?.name ?? "N/A"} style={{ marginTop: 16 }} />
+      <InfoText label="Departamento" value={item.department?.name ?? "N/A"} />
       <InfoText label="Unidad" value="Sample 123" />
       <InfoText
         label="Creador"
@@ -52,7 +52,7 @@ export default function FolioCard({ item, onPress }: Props) {
         label="Proveedor"
         value={item.department.userManage?.firstName ?? "N/A"}
       />
-      <InfoText label="Solucionador" value={item.userAttendingId.toString()} />
+      <InfoText label="Solucionador" value={item.userAttendingId?.toString() ?? "N/A"} />
 
       <Pressable onPress={onPress} style={styles.button}>
         <Text style={styles.buttonText}>Ver detalle</Text>
